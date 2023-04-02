@@ -18,4 +18,7 @@ int main(){
         }
     }
     if(p>=31) cout<<"no";
+
+    //Approach 2(Better approach) - If number of set bits=1 then the no. is divisible by 2
+    
 }
