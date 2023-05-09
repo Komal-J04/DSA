@@ -11,3 +11,7 @@ On the other hand, if the relative order changes before and after the sort, then
 Example : Quick Sort, Heap Sort
 
 An unstable algorithm can be made stable by taking the position of the elements into consideration.
+
+# In place algorithm
+An algortihm is said to be an in place algorithm if it doesn't need any extra space to produce the output excluding the space needed for variables i.e, it produces the output in the same memory that contains the data.
+Example : Selection Sort, Bubble Sort
