@@ -61,7 +61,7 @@ string replaceSpaces(string &str){
 	int len = str.size();
 	
 	int newLength;
-	newLength = len + (spaceCount * 2); // since 1 space is to be replaced by 3 characters - @,4,0
+	newLength = len + (spaceCount * 2); // since 1 space is to be replaced by 3 characters - @,4,0 => 1 space in the original string = 3 spaces in the new string i.e, 2 extra characters per space therefore spaceCount*2
 	
 	str.resize(newLength);
 	
@@ -82,6 +82,29 @@ string replaceSpaces(string &str){
 	}	
 	return str;	
 }
+
+//SOLUTION 4 - using inbuilt string functions
+#include <bits/stdc++.h> 
+string replaceSpaces(string &str){
+	int len=str.length();
+	int spaceCount=0;
+	for(int i=0;i<len;i++)
+	{
+		if (str[i]==' ') spaceCount++;
+	}
+	int i=0;
+	while(i<len+(spaceCount*2))
+	{
+          if (str[i] == ' ') {
+            str.replace(i, 1, "@40");
+			i=i+3;
+          }
+		  else i++;
+        }
+        return str;
+}
+
+
 
 
 //Sample input 1 - Coding Ninjas Is A Coding Platform
