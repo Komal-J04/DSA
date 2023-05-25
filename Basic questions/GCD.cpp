@@ -14,6 +14,11 @@ int gcd(int a,int b)
     return a;
 }
 
+int lcm(int a, int b)
+{
+    return (a*b)/gcd(a,b);
+}
+
 int main()
 {
     int a,b;
@@ -21,4 +26,5 @@ int main()
     cin>>a>>b;
 
     cout<<"GCD of "<<a<<" and "<<b<<" = "<<gcd(a,b)<<endl;
+    cout<<"LCM of "<<a<<" and "<<b<<" = "<<lcm(a,b)<<endl;
 }
