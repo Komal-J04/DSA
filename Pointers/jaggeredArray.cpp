@@ -39,4 +39,6 @@ int main()
     for(int i=0;i<rows;i++)     delete[] arr[i];
 
     delete[] arr;
+
+    delete[] cols;
 }
