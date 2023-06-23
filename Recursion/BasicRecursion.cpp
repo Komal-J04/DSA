@@ -41,10 +41,18 @@ int fibbonacci(int n)
 bool checkSorted(int arr[],int idx, int n)
 {
     //base case
+    if(n==0 || n==1) return true;
     if(idx == n-1) return true;
 
     return checkSorted(arr,idx+1,n) && (arr[idx]<arr[idx+1]);
 
+}
+
+int sum = 0;
+int arraySum(int *arr, int size)
+{
+    if(size == 0) return 0;
+    return arr[0] + arraySum(arr+1,size-1);
 }
 
 int main()
@@ -58,6 +66,15 @@ int main()
     cout<<endl;
     cout<<n<<"th number in fibonacci series = "<<fibbonacci(n)<<endl;
 
-    int arr[] = {1,2,3,6,5};
-    cout<<"Array is sorted? - "<<checkSorted(arr,0,5);
+    int arr[20];
+    int size;
+    cout<<"Enter elements of array\n";
+    cout<<"Enter size of array\n";
+    cin>>size;
+    for(int i=0;i<size;i++)
+    {
+        cin>>arr[i];
+    }
+    cout<<"Array is sorted? - "<<checkSorted(arr,0,size)<<endl;
+    cout<<"Sum of elements in array = "<<arraySum(arr,size)<<endl;
 }
