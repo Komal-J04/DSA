@@ -20,7 +20,7 @@ int findPivot(int *arr, int start, int end)
     if(arr[mid]==arr[start]) 
     {
         //mid-1 will return largest element   mid will return smallest element
-        return mid;
+        return mid-1;
     }
 
     if(arr[mid]>arr[start])
@@ -31,6 +31,20 @@ int findPivot(int *arr, int start, int end)
     {
         return findPivot(arr,start,mid);
     }
+}
+
+int search(int *arr, int start, int end, int elt)
+{
+    if(start>end) return -1;
+
+    int mid = (start+end)/2;
+
+    if(arr[mid]==elt)
+    {
+        return mid;
+    }
+    if(elt<arr[mid]) return search(arr,start,mid-1,elt);
+    if(elt>arr[mid]) return search(arr,mid+1,end,elt);
 }
 
 int  main()
@@ -47,5 +61,12 @@ int  main()
     
     print(arr,size);
 
-    cout<<"Peak index in the array is "<<findPivot(arr,0,size-1)<<endl;
+    int elt;
+    cout<<"Enter element to be searched - ";
+    cin>>elt;
+
+    int pivot = findPivot(arr,0,size-1);
+
+    if(elt>arr[0]) cout<<search(arr,0,pivot,elt)<<endl;
+    else cout<<search(arr,pivot+1,size-1,elt)<<endl;
 }
