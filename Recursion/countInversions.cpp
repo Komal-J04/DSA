@@ -6,6 +6,8 @@
 #include <iostream>
 using namespace std;
 
+int count = 0;
+
 void print(int *arr, int size)
 {
     cout << "The array is - ";
@@ -16,18 +18,17 @@ void print(int *arr, int size)
     cout << endl;
 }
 
-int countInv(int *arr, int size)
+void mergeSort(int *arr, int start, int end)
 {
-    int count = 0;
-    for (int i = 0; i < size - 1; i++)
-    {
-        for (int j = i + 1; j < size; j++)
-        {
-            if (arr[i] > arr[j])
-                count++;
-        }
-    }
-    return count;
+    if (start == end)
+        return;
+
+    int mid = start + (end - start) / 2;
+
+    count += mergeSort(arr, start, mid);
+    count += mergeSort(arr, mid + 1, end);
+
+    count += countInv(arr, start, mid, end);
 }
 
 int main()
