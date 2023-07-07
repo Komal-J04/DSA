@@ -1,34 +1,62 @@
-// how far (or close) the array is from being sorted.
-// Input: arr[] = {8, 4, 2, 1}
-// Output: 6
-// Explanation: Given array has six inversions: (8, 4), (4, 2), (8, 2), (8, 1), (4, 1), (2, 1).
-
-#include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
 
-int count = 0;
+int _mergeSort(int arr[], int temp[], int left, int right);
+int merge(int arr[], int temp[], int left, int mid, int right);
 
-void print(int *arr, int size)
+int mergeSort(int arr[], int array_size)
 {
-    cout << "The array is - ";
-    for (int i = 0; i < size; i++)
-    {
-        cout << arr[i] << " ";
-    }
-    cout << endl;
+    int temp[array_size];
+    return _mergeSort(arr, temp, 0, array_size - 1);
 }
 
-void mergeSort(int *arr, int start, int end)
+int _mergeSort(int arr[], int temp[], int left, int right)
 {
-    if (start == end)
-        return;
+    int mid, inv_count = 0;
+    if (right > left)
+    {
+        mid = (right + left) / 2;
 
-    int mid = start + (end - start) / 2;
+        inv_count += _mergeSort(arr, temp, left, mid);
+        inv_count += _mergeSort(arr, temp, mid + 1, right);
 
-    count += mergeSort(arr, start, mid);
-    count += mergeSort(arr, mid + 1, end);
+        inv_count += merge(arr, temp, left, mid + 1, right);
+    }
+    return inv_count;
+}
 
-    count += countInv(arr, start, mid, end);
+int merge(int arr[], int temp[], int left, int mid, int right)
+{
+    int i, j, k;
+    int inv_count = 0;
+
+    i = left;
+    j = mid;
+    k = left;
+    while ((i <= mid - 1) && (j <= right))
+    {
+        if (arr[i] <= arr[j])
+        {
+            temp[k++] = arr[i++];
+        }
+        else
+        {
+            temp[k++] = arr[j++];
+
+            inv_count = inv_count + (mid - i);
+        }
+    }
+
+    while (i <= mid - 1)
+        temp[k++] = arr[i++];
+
+    while (j <= right)
+        temp[k++] = arr[j++];
+
+    for (i = left; i <= right; i++)
+        arr[i] = temp[i];
+
+    return inv_count;
 }
 
 int main()
@@ -43,5 +71,6 @@ int main()
         cin >> arr[i];
     }
 
-    cout << "Inversion count = " << countInv(arr, size) << endl;
+    cout << " Number of inversions are " << mergeSort(arr, size);
+    return 0;
 }
