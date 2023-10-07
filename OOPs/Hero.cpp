@@ -27,9 +27,17 @@ public:
         this->health = health;
     }
 
+    // copy constructor
+    Hero(Hero &temp)
+    {
+        cout << "copy constructor" << endl;
+        this->health = temp.health;
+        this->level = temp.level;
+    }
+
     void print()
     {
-        cout << "Inside class - " << level << endl;
+        cout << "health " << this->health << " level " << this->level << endl;
     }
 
     int getHealth()

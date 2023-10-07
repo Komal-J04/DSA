@@ -27,5 +27,12 @@ int main()
     cout << "c health is " << c->getHealth() << endl;
     cout << "c level is " << c->level << endl;
 
+    Hero d(70, 'C');
+    Hero e(d); // e.health=d.health & e.level-d.level
+    cout << "d ";
+    d.print();
+    cout << "e ";
+    e.print();
+
     return 0;
 }
