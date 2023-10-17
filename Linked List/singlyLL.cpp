@@ -27,16 +27,32 @@ void print(Node *head)
     cout << endl;
 }
 
-void insertAtHead(Node *&head, int d) //* because it is a pointer and & because we want to make changes in the original LL, not its copy
+void insertAtHead(Node *&head, Node *&tail, int d) //* because it is a pointer and & because we want to make changes in the original LL, not its copy
 {
     Node *newNode = new Node(d); // if we do static allocation, newNode will be live only within the scope of this function
+
+    if (head == NULL)
+    {
+        head = newNode;
+        tail = newNode;
+        return;
+    }
+
     newNode->next = head;
     head = newNode;
 }
 
-void insertAtTail(Node *&tail, int d)
+void insertAtTail(Node *&head, Node *&tail, int d)
 {
     Node *newNode = new Node(d);
+
+    if (head == NULL)
+    {
+        head = newNode;
+        tail = newNode;
+        return;
+    }
+
     tail->next = newNode;
     tail = newNode;
 }
@@ -45,7 +61,7 @@ void insertAtPos(Node *&head, Node *&tail, int pos, int d)
 {
     if (pos == 1)
     {
-        insertAtHead(head, d);
+        insertAtHead(head, tail, d);
         return;
     }
     Node *newNode = new Node(d);
@@ -56,19 +72,19 @@ void insertAtPos(Node *&head, Node *&tail, int pos, int d)
         temp = temp->next;
     }
 
-    // if (temp->next == NULL) //this or the below 'if' condition
-    // {
-    //     insertAtTail(tail, d);
-    //     return;
-    // }
+    if (temp->next == NULL) // this or the below 'if' condition
+    {
+        insertAtTail(head, tail, d);
+        return;
+    }
 
     newNode->next = temp->next;
     temp->next = newNode;
 
-    if (newNode->next == NULL) // update the tail when inserting at last
-    {
-        tail = newNode;
-    }
+    // if (newNode->next == NULL) // update the tail when inserting at last
+    // {
+    //     tail = newNode;
+    // }
 }
 
 void deleteHead(Node *&head)
@@ -82,8 +98,8 @@ void deleteHead(Node *&head)
 void deleteTail(Node *&head, Node *&tail)
 {
     Node *temp = head;
-    Node *curr = head;
-    while (temp->next->next != NULL)
+    Node *curr = temp->next;
+    while (curr->next != NULL)
     {
         temp = temp->next;
         curr = curr->next;
@@ -141,33 +157,33 @@ int main()
 {
     Node *n1 = new Node(10); // dynamic allocation-creating a Node in the heap and n1 points to it
 
-    Node *head = n1;
-    Node *tail = n1;
-    cout << head->data;
+    Node *head = NULL;
+    Node *tail = NULL;
+    // cout << head->data;
 
+    // print(head);
+    insertAtHead(head, tail, 5);
     print(head);
-    insertAtHead(head, 5);
-    print(head);
-    insertAtHead(head, 4);
+    insertAtHead(head, tail, 4);
     print(head);
 
-    insertAtTail(tail, 15);
+    insertAtTail(head, tail, 15);
     print(head);
-    insertAtTail(tail, 17);
+    insertAtTail(head, tail, 17);
     print(head);
 
     insertAtPos(head, tail, 3, 9);
     print(head);
     insertAtPos(head, tail, 1, 1);
     print(head);
-    insertAtPos(head, tail, 8, 19);
+    insertAtPos(head, tail, 7, 19);
     print(head);
-    insertAtPos(head, tail, 9, 20);
+    insertAtPos(head, tail, 8, 20);
     print(head);
     insertAtPos(head, tail, 2, 3);
     print(head);
 
-    insertAtTail(tail, 21);
+    insertAtTail(head, tail, 21);
     print(head);
 
     deleteHead(head);
@@ -180,10 +196,10 @@ int main()
     print(head);
     deleteAtPos(head, tail, 1);
     print(head);
-    deleteAtPos(head, tail, 7);
+    deleteAtPos(head, tail, 6);
     print(head);
 
-    insertAtTail(tail, 20);
+    insertAtTail(head, tail, 20);
     print(head);
 
     deleteElt(head, tail, 15);
