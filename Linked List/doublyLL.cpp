@@ -27,6 +27,26 @@ void print(Node *head)
     cout << endl;
 }
 
+void printInReverse(Node *head)
+{
+    Node *temp = head;
+    while (temp->next != NULL)
+    {
+        temp = temp->next;
+    }
+
+    cout << "Data in reverse - ";
+    while (temp->prev != NULL)
+    {
+        // cout << "temp->prev - " << temp->prev->data << endl;
+        cout << temp->data << " ";
+        temp = temp->prev;
+    }
+    // when temp comes to the first node(head), its prev is null so that data is not printed, so print it separately
+    cout << temp->data;
+    cout << endl;
+}
+
 int getLen(Node *head)
 {
     int count = 0;
@@ -161,11 +181,11 @@ int main()
     print(head);
     insertAtPos(head, 5, 1);
     print(head);
-    cout << "head=" << head->data << endl;
     insertAtPos(head, 17, 6);
     print(head);
     insertAtPos(head, 20, 7);
     print(head);
+    printInReverse(head);
 
     deleteNode(head, 3);
     print(head);
@@ -173,6 +193,10 @@ int main()
     print(head);
     deleteNode(head, 5);
     print(head);
+
+    // cout << "head " << head->data << endl;
+    // cout << "head->next->prev " << head->next->prev->data << endl;
+    printInReverse(head);
 
     return 0;
 }
