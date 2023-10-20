@@ -16,11 +16,14 @@ public:
 
 void print(Node *tail)
 {
+<<<<<<< HEAD
     if (tail == NULL)
     {
         cout << "Empty list" << endl;
         return;
     }
+=======
+>>>>>>> fb745e5449705034c1cbb3e6a9cb44509f6d1cec
     Node *temp = tail->next;
     do
     {
@@ -63,6 +66,7 @@ void insertion(Node *&tail, int d, int elt)
     }
 }
 
+<<<<<<< HEAD
 // delete node with value d
 void deletion(Node *&tail, int d)
 {
@@ -91,6 +95,8 @@ void deletion(Node *&tail, int d)
     } while (prev != tail);
 }
 
+=======
+>>>>>>> fb745e5449705034c1cbb3e6a9cb44509f6d1cec
 int main()
 {
     Node *tail = NULL;
@@ -106,6 +112,7 @@ int main()
     print(tail);
     insertion(tail, 20, 12);
     print(tail);
+<<<<<<< HEAD
 
     deletion(tail, 6);
     print(tail);
@@ -122,5 +129,7 @@ int main()
     deletion(tail, 17);
     print(tail);
 
+=======
+>>>>>>> fb745e5449705034c1cbb3e6a9cb44509f6d1cec
     return 0;
 }
