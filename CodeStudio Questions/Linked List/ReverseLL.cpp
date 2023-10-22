@@ -44,6 +44,7 @@ LinkedListNode<int> *reverseLinkedList(LinkedListNode<int> *head)
 }
 
 // SOLUTION 2 - RECURSION
+//  T.C. - O(n)       S.C. - O(n)
 void reverse(LinkedListNode<int> *&head, LinkedListNode<int> *prev, LinkedListNode<int> *curr)
 {
     if (curr == NULL)
@@ -68,4 +69,19 @@ LinkedListNode<int> *reverseLinkedList(LinkedListNode<int> *head)
     reverse(head, prev, curr);
 
     return head;
+}
+
+// SOLUTION 3 - RECURSION
+//  T.C. - O(n)       S.C. - O(n)
+LinkedListNode<int> *reverseLinkedList(LinkedListNode<int> *head)
+{
+    if (head == NULL || head->next == NULL)
+        return head;
+
+    LinkedListNode<int> *smallHead = reverseLinkedList(head->next);
+
+    head->next->next = head;
+    head->next = NULL;
+
+    return smallHead;
 }
