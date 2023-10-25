@@ -40,7 +40,7 @@ LinkedListNode<int> *reverseLinkedList(LinkedListNode<int> *head)
     // head = prev;
     // return head;
     // OR
-    return prev;
+    return prev; // in this case, head still points to the 1st node
 }
 
 // SOLUTION 2 - RECURSION
