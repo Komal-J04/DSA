@@ -1,4 +1,5 @@
 #include <iostream>
+#include <map>
 using namespace std;
 
 class Node
@@ -16,14 +17,11 @@ public:
 
 void print(Node *tail)
 {
-<<<<<<< HEAD
     if (tail == NULL)
     {
         cout << "Empty list" << endl;
         return;
     }
-=======
->>>>>>> fb745e5449705034c1cbb3e6a9cb44509f6d1cec
     Node *temp = tail->next;
     do
     {
@@ -66,7 +64,6 @@ void insertion(Node *&tail, int d, int elt)
     }
 }
 
-<<<<<<< HEAD
 // delete node with value d
 void deletion(Node *&tail, int d)
 {
@@ -95,8 +92,82 @@ void deletion(Node *&tail, int d)
     } while (prev != tail);
 }
 
-=======
->>>>>>> fb745e5449705034c1cbb3e6a9cb44509f6d1cec
+// using map
+void detectLoop(Node *head)
+{
+    if (head == NULL)
+    {
+        cout << "No loop" << endl;
+        return;
+    }
+
+    map<Node *, bool> map;
+    map[head] = true;
+
+    Node *curr = head->next;
+
+    while (curr != NULL && map[curr] != true)
+    {
+        map[curr] = true;
+        curr = curr->next;
+    }
+    if (curr == NULL)
+        cout << "No loop" << endl;
+    if (map[curr])
+        cout << "Loop starts on node with value " << curr->data << endl;
+}
+
+// Floyd's cycle detection algorithm
+bool floyd(Node *head)
+{
+    if (head == NULL)
+        return false;
+
+    Node *slow = head;
+    Node *fast = head;
+
+    while (fast != NULL && fast->next != NULL)
+    {
+        fast = fast->next->next;
+        slow = slow->next;
+
+        // both the pointer are initially equal(head), so if we check for this condition before incrementing them we will get true only
+        if (slow == fast)
+            return true;
+    }
+}
+
+// start of a loop using Floyd's algo
+Node *startNode(Node *head)
+{
+    // we can get the intersection node from floyd function as well
+    if (head == NULL)
+        return head;
+
+    Node *slow = head;
+    Node *fast = head;
+
+    while (fast != NULL && fast->next != NULL)
+    {
+        fast = fast->next->next;
+        slow = slow->next;
+
+        if (fast == slow)
+        {
+            slow = head;
+            break;
+        }
+    }
+
+    while (slow != fast)
+    {
+        fast = fast->next;
+        slow = slow->next;
+    }
+
+    return slow;
+}
+
 int main()
 {
     Node *tail = NULL;
@@ -112,7 +183,6 @@ int main()
     print(tail);
     insertion(tail, 20, 12);
     print(tail);
-<<<<<<< HEAD
 
     deletion(tail, 6);
     print(tail);
@@ -124,12 +194,15 @@ int main()
     print(tail);
     deletion(tail, 15);
     print(tail);
-    deletion(tail, 17);
-    print(tail);
-    deletion(tail, 17);
-    print(tail);
 
-=======
->>>>>>> fb745e5449705034c1cbb3e6a9cb44509f6d1cec
+    detectLoop(tail);
+
+    if (floyd(tail))
+        cout << "Loop detected" << endl;
+    else
+        cout << "No loop" << endl;
+
+    Node *loopStartNode = startNode(tail);
+    cout << "The loop starts at the node with data " << loopStartNode->data << endl;
     return 0;
 }

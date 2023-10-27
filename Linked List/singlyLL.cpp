@@ -1,4 +1,5 @@
 #include <iostream>
+#include <map>
 using namespace std;
 
 class Node
@@ -153,6 +154,86 @@ void deleteElt(Node *&head, Node *&tail, int d)
     delete n;
 }
 
+// using map
+void detectLoop(Node *head)
+{
+    if (head == NULL)
+    {
+        cout << "No loop" << endl;
+        return;
+    }
+
+    map<Node *, bool> map;
+    map[head] = true;
+
+    Node *curr = head->next;
+
+    while (curr != NULL && map[curr] != true)
+    {
+        map[curr] = true;
+        curr = curr->next;
+    }
+    if (curr == NULL)
+        cout << "No loop" << endl;
+    if (map[curr])
+    {
+        cout << "Loop starts on node with value " << curr->data << endl;
+    }
+}
+
+// Floyd's cycle detection algorithm
+bool floyd(Node *head)
+{
+    if (head == NULL)
+        return false;
+
+    Node *slow = head;
+    Node *fast = head;
+
+    while (fast != NULL && fast->next != NULL)
+    {
+        fast = fast->next->next;
+        slow = slow->next;
+
+        // both the pointer are initially equal(head), so if we check for this condition before incrementing them we will get true only
+        if (slow == fast)
+            return true;
+    }
+
+    if (fast == NULL)
+        return false;
+}
+
+// start of a loop using Floyd's algo
+Node *startNode(Node *head)
+{
+    if (head == NULL)
+        return head;
+
+    Node *slow = head;
+    Node *fast = head;
+
+    while (fast != NULL && fast->next != NULL)
+    {
+        fast = fast->next->next;
+        slow = slow->next;
+
+        if (fast == slow)
+        {
+            slow = head;
+            break;
+        }
+    }
+
+    while (slow != fast)
+    {
+        fast = fast->next;
+        slow = slow->next;
+    }
+
+    return slow;
+}
+
 int main()
 {
     Node *n1 = new Node(10); // dynamic allocation-creating a Node in the heap and n1 points to it
@@ -208,4 +289,15 @@ int main()
     print(head);
     deleteElt(head, tail, 20);
     print(head);
+
+    tail->next = head->next;
+    detectLoop(head);
+
+    if (floyd(head))
+        cout << "Loop detected" << endl;
+    else
+        cout << "No loop" << endl;
+
+    Node *loopStartNode = startNode(head);
+    cout << "The loop starts at the node with data " << loopStartNode->data << endl;
 }
