@@ -173,8 +173,10 @@ void detectLoop(Node *head)
         map[curr] = true;
         curr = curr->next;
     }
+
     if (curr == NULL)
         cout << "No loop" << endl;
+
     if (map[curr])
     {
         cout << "Loop starts on node with value " << curr->data << endl;
@@ -232,6 +234,24 @@ Node *startNode(Node *head)
     }
 
     return slow;
+}
+
+// T.C.-O(n)      S.C.-O(1)
+Node *removeLoop(Node *head)
+{
+    if (head == NULL)
+        return head;
+
+    Node *loopStartNode = startNode(head);
+    Node *temp = loopStartNode;
+
+    while (temp->next != loopStartNode)
+    {
+        temp = temp->next;
+    }
+
+    temp->next = NULL;
+    return head;
 }
 
 int main()
@@ -300,4 +320,9 @@ int main()
 
     Node *loopStartNode = startNode(head);
     cout << "The loop starts at the node with data " << loopStartNode->data << endl;
+
+    Node *newHead = removeLoop(head);
+    print(newHead);
+
+    return 0;
 }

@@ -31,6 +31,18 @@ void print(Node *tail)
     cout << endl;
 }
 
+void print2(Node *head)
+{
+    Node *temp = head;
+    cout << "Current state of the linked list - ";
+    while (temp != NULL)
+    {
+        cout << temp->data << " ";
+        temp = temp->next;
+    }
+    cout << endl;
+}
+
 void insertion(Node *&tail, int d, int elt)
 {
     Node *newNode = new Node(d);
@@ -168,6 +180,46 @@ Node *startNode(Node *head)
     return slow;
 }
 
+// this code will not work for circular singly LL because this code makes the node just before the loop start node, point to null. And, in singly LL, that node is a part of the list
+/*
+Node *removeLoop(Node *head)
+{
+    if (head == NULL)
+        return head;
+
+    Node *loopStartNode = startNode(head);
+    // cout << "In removeLoop, loop start node = " << loopStartNode->data << endl;
+    if (loopStartNode != NULL)
+    {
+        Node *temp = loopStartNode;
+
+        while (temp->next != loopStartNode)
+        {
+            cout << "temp->data = " << temp->data << endl;
+            temp = temp->next;
+        }
+
+        temp->next = NULL;
+        return head;
+    }
+}
+*/
+
+Node *removeLoop(Node *tail)
+{
+    if (tail == NULL)
+        return tail;
+
+    Node *temp = tail;
+    while (temp->next != tail)
+    {
+        temp = temp->next;
+    }
+    temp->next = NULL;
+
+    return tail;
+}
+
 int main()
 {
     Node *tail = NULL;
@@ -190,10 +242,6 @@ int main()
     print(tail);
     deletion(tail, 5);
     print(tail);
-    deletion(tail, 10);
-    print(tail);
-    deletion(tail, 15);
-    print(tail);
 
     detectLoop(tail);
 
@@ -204,5 +252,9 @@ int main()
 
     Node *loopStartNode = startNode(tail);
     cout << "The loop starts at the node with data " << loopStartNode->data << endl;
+
+    Node *noLoopHead = removeLoop(tail);
+    print2(noLoopHead);
+
     return 0;
 }
