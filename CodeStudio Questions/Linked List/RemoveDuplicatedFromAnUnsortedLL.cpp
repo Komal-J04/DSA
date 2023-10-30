@@ -79,3 +79,34 @@ Node *removeDuplicates(Node *head)
     }
     return head;
 }
+
+// using map     T.C.-O(N)  S.C.-O(N)
+Node *removeDuplicates(Node *head)
+{
+    if (head == NULL || head->next == NULL)
+        return head;
+
+    map<int, bool> visited;
+
+    Node *prev = NULL;
+    Node *curr = head;
+
+    while (curr != NULL)
+    {
+        if (visited[curr->data])
+        {
+            prev->next = curr->next;
+            delete curr;
+
+            curr = prev->next;
+        }
+        else
+        {
+            visited[curr->data] = true;
+            prev = curr;
+            curr = curr->next;
+        }
+    }
+
+    return head;
+}
