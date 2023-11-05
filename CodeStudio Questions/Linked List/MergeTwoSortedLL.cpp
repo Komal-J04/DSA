@@ -35,6 +35,7 @@ Node<int> *sortTwoLists(Node<int> *first, Node<int> *second)
     Node<int> *temp2 = second;
 
     Node<int> *newHead;
+    Node<int> *temp3;
 
     if (temp1->data <= temp2->data)
     {
@@ -47,30 +48,36 @@ Node<int> *sortTwoLists(Node<int> *first, Node<int> *second)
         temp2 = temp2->next;
     }
 
+    temp3 = newHead;
+
     while (temp1 != NULL && temp2 != NULL)
     {
         if (temp1->data <= temp2->data)
         {
-            newHead->next = temp1;
+            temp3->next = temp1;
             temp1 = temp1->next;
+            temp3 = temp3->next;
         }
         else
         {
-            newHead->next = temp2;
+            temp3->next = temp2;
             temp2 = temp2->next;
+            temp3 = temp3->next;
         }
     }
 
     while (temp1)
     {
-        newHead->next = temp1;
+        temp3->next = temp1;
         temp1 = temp1->next;
+        temp3 = temp3->next;
     }
 
     while (temp2)
     {
-        newHead->next = temp2;
+        temp3->next = temp2;
         temp2 = temp2->next;
+        temp3 = temp3->next;
     }
 
     return newHead;
