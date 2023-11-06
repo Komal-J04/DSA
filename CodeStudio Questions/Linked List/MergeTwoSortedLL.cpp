@@ -24,6 +24,7 @@
 
 ************************************************************/
 
+// SOLN 1
 Node<int> *sortTwoLists(Node<int> *first, Node<int> *second)
 {
     if (first == NULL)
@@ -81,4 +82,56 @@ Node<int> *sortTwoLists(Node<int> *first, Node<int> *second)
     }
 
     return newHead;
+}
+
+// SOLN 2  T.C.-O(N) S.C.-O(1)
+Node<int> *sort(Node<int> *first, Node<int> *second)
+{
+
+    // if only 1 element is present in first list
+    if (first->next == NULL)
+    {
+        first->next = second;
+        return first;
+    }
+
+    Node<int> *prev = first;
+    Node<int> *curr = prev->next;
+    Node<int> *temp = second;
+
+    while (temp != NULL && curr != NULL)
+    {
+        if (temp->data >= prev->data && temp->data <= curr->data)
+        {
+            Node<int> *temp2 = temp->next;
+            prev->next = temp;
+            temp->next = curr;
+            prev = temp;
+            temp = temp2;
+        }
+        else
+        {
+            prev = curr;
+            curr = curr->next;
+            if (curr == NULL) // first list is over
+            {
+                prev->next = temp;
+                return first;
+            }
+        }
+    }
+
+    return first; // the loop is exited only if one of temp or curr is null, temp null implies 2nd list over=>merged, curr null is handled in the loop
+}
+
+Node<int> *sortTwoLists(Node<int> *first, Node<int> *second)
+{
+    if (first == NULL)
+        return second;
+    if (second == NULL)
+        return first;
+
+    if (first->data <= second->data)
+        return sort(first, second);
+    return sort(second, first);
 }
