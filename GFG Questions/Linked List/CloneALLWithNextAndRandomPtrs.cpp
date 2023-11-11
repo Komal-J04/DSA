@@ -121,3 +121,75 @@ public:
         return newHead;
     }
 };
+
+// SOLN 3
+//  T.C.-O(n)    S.C.-O(1)
+class Solution
+{
+public:
+    void insertAtTail(Node *&head, int data)
+    {
+        Node *newNode = new Node(data);
+        if (head == NULL)
+        {
+            head = newNode;
+            return;
+        }
+        Node *temp = head;
+        while (temp->next != NULL)
+            temp = temp->next;
+        temp->next = newNode;
+    }
+
+    Node *copyList(Node *head)
+    {
+        if (head == NULL)
+            return NULL;
+
+        // step 1 : create a clone list
+        Node *newHead = new Node(head->data);
+        Node *temp = head->next;
+        while (temp)
+        {
+            insertAtTail(newHead, temp->data);
+            temp = temp->next;
+        }
+
+        // step 2 : add clone nodes between original list
+        temp = head;
+        Node *temp2 = newHead;
+        while (temp && temp2)
+        {
+            Node *next1 = temp->next;
+            temp->next = temp2;
+            temp = next1;
+            Node *next2 = temp2->next;
+            temp2->next = temp;
+            temp2 = next2;
+        }
+
+        // step 3 : copy arb pointers
+        temp = head;
+        while (temp)
+        {
+            if (temp->arb)
+                temp->next->arb = temp->arb->next;
+            temp = temp->next->next;
+        }
+
+        // step 4 : revert changes done in step 2
+        temp = head;
+        temp2 = newHead;
+        while (temp && temp2)
+        {
+            temp->next = temp2->next;
+            temp = temp->next;
+            if (temp)
+                temp2->next = temp->next;
+            temp2 = temp2->next;
+        }
+
+        // step 5 : return ans
+        return newHead;
+    }
+};
