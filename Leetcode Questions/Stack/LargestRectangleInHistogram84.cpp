@@ -52,7 +52,7 @@ public:
         for (int i = 0; i < n; i++) // O(n)
         {
             if (next[i] == -1)
-                next[i] = n; // in case all arr elements are equal
+                next[i] = n; // in case all arr elements are equal / last element next = -1
             int breadth = next[i] - prev[i] - 1;
             ans = max(ans, heights[i] * breadth);
         }

@@ -1,3 +1,4 @@
+// T.c. - O(n*m)     S.C. - O(m)
 class Solution
 {
 public:
@@ -58,9 +59,9 @@ public:
 
     int maxArea(int M[MAX][MAX], int n, int m)
     {
-        int ans = largestRectangleArea(M[0], m);
+        int ans = largestRectangleArea(M[0], m); // O(n)
 
-        for (int i = 1; i < n; i++)
+        for (int i = 1; i < n; i++) // O(n*m)
         {
             for (int j = 0; j < m; j++)
             {
