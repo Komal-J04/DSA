@@ -26,7 +26,6 @@ int printLength(Rectangle b)
 
 int main()
 {
-
     Rectangle r;
     // cout << r.len << endl;
     calcLength(r);
