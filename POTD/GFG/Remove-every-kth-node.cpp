@@ -73,7 +73,7 @@ public:
                 count++;
             }
 
-            // We can exit from while loop either because count>=K or nex->next=null. We want to update pointers only is count>=K, but if nex->next=null, we just exit out of the loop because in that case, we do not want to update the pointers since it is probably not the Kth node.
+            // We exit from while loop either because count>=K or nex->next=null. We want to update pointers only is count>=K, but if nex->next=null, we just exit out of the loop because in that case, we do not want to update the pointers since it is probably not the Kth node.
 
             if (count != K)
                 break; // if k > current length of the list
