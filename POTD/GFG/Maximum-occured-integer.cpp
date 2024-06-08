@@ -119,6 +119,7 @@ public:
         // Your code here
         vector<int> count(maxx + 1); // say maxx=10  count.size() == maxx = 10 (0....9)
 
+        // marking the starting and ending of the ranges in a way
         for (int i = 0; i < n; i++)
         {
             count[l[i]]++;
@@ -126,6 +127,7 @@ public:
                 count[r[i] + 1]--;
         }
 
+        // calculating count of each element using the markingss
         for (int i = 0; i < count.size(); i++)
             count[i] += count[i - 1];
 
