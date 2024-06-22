@@ -28,3 +28,11 @@ public:
         return ans;
     }
 };
+
+// WHY RESET CNT TO 0 ON ENCOUNTERING AN ODD NUMBER:
+
+/**  When a new odd number is encountered (nums[j] % 2 == 1), it signifies the beginning of counting new subarrays that end at the current position j:
+->  Resetting cnt to 0 ensures that we start counting fresh for subarrays that end at this new odd position.
+-> Without resetting cnt, it would carry over the count from previous segments, leading to incorrect counts.
+
+*/
