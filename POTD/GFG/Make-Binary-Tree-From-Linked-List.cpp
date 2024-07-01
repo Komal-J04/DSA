@@ -1,5 +1,7 @@
 // https://www.geeksforgeeks.org/problems/make-binary-tree/1
 
+// No need to check the queue because we add elements only as long as elements are present in the linked list, we dont have anything to add to the leftover elements of the queue.
+
 //{ Driver Code Starts
 #include <bits/stdc++.h>
 
@@ -149,7 +151,7 @@ void convert(Node *head, TreeNode *&root)
 
     Node *tempLL = head->next;
 
-    while ((tempLL != NULL) || (!q.empty()))
+    while (tempLL != NULL)
     {
         TreeNode *temp = q.front();
         q.pop();
