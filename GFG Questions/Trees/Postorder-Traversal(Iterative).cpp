@@ -177,6 +177,9 @@ int main()
 // *********************************************************************************
 
 // APPROACH 2 - ITERATIVE USING 1 STACK
+
+// TC - O(2*N)       SC - O(N)
+
 //{ Driver Code Starts
 // Initial Template for C++
 
